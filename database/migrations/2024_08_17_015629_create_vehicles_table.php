@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('vehicles', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->id();
-            $table->string('image');
+            // $table->json('image');
             // $table->string('image_path');
             $table->string('make');
             $table->string('model');
@@ -22,11 +22,11 @@ return new class extends Migration
             $table->string('fuel');
             $table->integer('km');
             $table->string('doors');
-            $table->string('color');
+            $table->string('color')->nullable();
             $table->string('plate');
-            $table->string('shift');
+            $table->string('transmission');
             // $table->string('vin')->unique();
-            $table->json('optionals'); // create database entity later
+            //$table->json('optionals'); // create database entity later
             $table->text('description')->nullable();
             $table->timestamps();
         });

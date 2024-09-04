@@ -9,6 +9,20 @@ class Auction extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'user_id',
+        'starting_bid', 
+        'status',
+        'start_time', 
+        'end_time',
+        'vehicle_id'
+    ];
+
+    // public function images()
+    // {
+    //     return $this->hasMany(Image::class);
+    // }
+
     public function user() {
         return $this->belongsTo('App\Models\User');
     }

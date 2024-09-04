@@ -19,7 +19,7 @@ return new class extends Migration
             // $table->foreign('vehicle_id')->references('id')->on('vehicles')->onDelete('cascade');
             // $table->unsignedBigInteger('vehicle_id');
             // $table->foreign('vehicle_id')->references('id')->on('vehicles'); //->onDelete('cascade');
-            
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->decimal('starting_bid', 10, 2); // Example field for the auction
             $table->string("status"); //open or closed
             $table->timestamp('start_time')->useCurrent();

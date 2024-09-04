@@ -21,28 +21,25 @@
         <nav class="navbar navbar-expand-lg navbar-light">
           <div class="collapse navbar-collapse" id="navbar">
             <a href="/" class="navbar-brand">
-              <img src="/img/hdcauctions_logo.svg" alt="HDC Auction">
+              <img src="/img/hdcevents_logo.svg" alt="HDC Events">
             </a>
             <ul class="navbar-nav">
               <li class="nav-item">
                 <a href="/" class="nav-link">Leilões</a>
               </li>
               <li class="nav-item">
-                <a href="/auctions/create" class="nav-link">Cadastrar Carro</a>
-              </li>
-              <li class="nav-item">
-                <a href="/auctions/create/auction" class="nav-link">Cadastrar Leilão</a>
+                <a href="/auctions/create" class="nav-link">Leiloar Carro</a>
               </li>
               @auth
               <li class="nav-item">
-                <a href="/dashboard" class="nav-link">Meus leilões</a>
+                <a href="/dashboard" class="nav-link">Meus Leilões</a>
               </li>
               <li class="nav-item">
                 <form action="/logout" method="POST">
                   @csrf
                   <a href="/logout" 
                     class="nav-link" 
-                    onclick="auction.preventDefault();
+                    onclick="event.preventDefault();
                     this.closest('form').submit();">
                     Sair
                   </a>
