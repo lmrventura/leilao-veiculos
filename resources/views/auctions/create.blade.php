@@ -5,6 +5,17 @@
 @section('content')
 
 <div id="event-create-container" class="col-md-6 offset-md-3">
+  
+  @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+  @endif
+
   <h1>Cadastrar carro</h1>
   <form action="/auctions" method="POST" enctype="multipart/form-data">
     @csrf
@@ -183,7 +194,7 @@
 
     <div class="form-group">
       <label for="starting_bid">Lance Inicial:</label>
-      <input type="number" step="1000" class="form-control" id="starting_bid" name="starting_bid" placeholder="Lance inicial do leilão" required>
+      <input type="number" class="form-control" id="starting_bid" name="starting_bid" placeholder="Lance inicial do leilão" required> {{-- step="1000" --}}
     </div>
 
     {{--

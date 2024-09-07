@@ -20,12 +20,12 @@
     <div id="cards-container" class="row">
         @foreach($auctions as $auction)
         <div class="card col-md-3">
-            <img src="/img/events/{{ $event->image }}" alt="{{ $event->title }}">
+            <img src="/img/vehicles/{{ $auction->vehicle->images->first()->path }}" alt="{{ $auction->vehicle->model }}">
             <div class="card-body">
-                <p class="card-date">{{ date('d/m/Y', strtotime($event->date)) }}</p>
-                <h5 class="card-title">{{ $event->title }}</h5>
-                <p class="card-participants"> {{ count($event->users) }} Participantes</p>
-                <a href="/events/{{ $event->id }}" class="btn btn-primary">Saber mais</a>
+                <p class="card-date">{{ date('d/m/Y', strtotime($auction->start_time)) }}</p>
+                <h5 class="card-title">{{ $auction->vehicle->make }} {{ $auction->vehicle->model }}</h5>
+                <p class="card-participants"> Lance inicial: R$ {{number_format($auction->starting_bid, 2, ',', '.')}} </p>
+                <a href="/auctions/{{ $auction->id }}" class="btn btn-primary">Saber mais</a>
             </div>
         </div>
         @endforeach
