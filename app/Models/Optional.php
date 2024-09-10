@@ -9,8 +9,10 @@ class Optional extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['name'];
+
     public function optionals()
     {
-        return $this->belongsToMany(Optional::class, 'vehicle_optional');
+        return $this->belongsToMany(Vehicle::class, 'vehicle_optional', 'optional_id', 'vehicle_id');
     }
 }

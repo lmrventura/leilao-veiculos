@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Auction;
+use App\Models\Optional;
 use App\Models\Vehicle;
 use Exception;
 use Illuminate\Http\Request;
@@ -84,6 +85,18 @@ class AuctionController extends Controller
 
                         // Relacionamento Vehicle -> Image
                         $vehicle->images()->create(['path' => 'images/vehicles/' . $imageName]);
+                    }
+                }
+
+                if($request->has('optionals')) {
+                    $optionals = $request->input('optionals');
+                    foreach($optionals as $optionalName) {
+                        // Encontrar ou criar o opcional
+                        $optional = Optional::firstOrCreate(['name' => $optionalName]);
+                        
+                        // Associar o veículo ao opcional na tabela pivot
+                        $vehicle->optionals()->attach($optional->id);
+                        // $vehicle->optionals()->syncWithoutDetaching($optional->id);
                     }
                 }
 

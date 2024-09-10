@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('optionals', function (Blueprint $table) {
             $table->id();
+            $table->string('name'); // Nome do opcional
             $table->timestamps();
         });
     }

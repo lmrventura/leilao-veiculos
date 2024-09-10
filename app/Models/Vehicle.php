@@ -41,4 +41,8 @@ class Vehicle extends Model
     {
         return $this->hasMany(Image::class);
     }
+
+    public function optionals() {
+        return $this->belongsToMany(Optional::class, 'vehicle_optional', 'vehicle_id', 'optional_id');
+    }
 }
