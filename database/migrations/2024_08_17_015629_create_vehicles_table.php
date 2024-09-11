@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             // $table->json('image');
             // $table->string('image_path');
-            $table->string('make');
+            $table->string('make'); //$table->string('manufacturer');
             $table->string('model');
             $table->year('year');
             $table->string('fuel');

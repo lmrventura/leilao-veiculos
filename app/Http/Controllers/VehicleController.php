@@ -70,15 +70,6 @@ class VehicleController extends Controller
             'description' => $validatedData['description'],
         ]);
 
-        // Criar a entrada para `Auction`
-        Auction::create([
-            'vehicle_id' => $vehicle->id, // Relaciona o leilão com o veículo criado
-            'starting_bid' => $validatedData['starting_bid'],
-            'status' => 'open', // Status inicial definido como "open"
-            'start_time' => $validatedData['start_time'],
-            'end_time' => $validatedData['end_time']
-        ]);
-
         // Redireciona com mensagem de sucesso
         return redirect('/dashboard')->with('msg', 'Vehicle and Auction created successfully.');
         }

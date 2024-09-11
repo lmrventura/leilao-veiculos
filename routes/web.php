@@ -22,6 +22,6 @@ Route::get('/contact', function () {
 
 // Route::get('/dashboard', [AuctionController::class, 'dashboard'])->middleware('auth');
 
-Route::post('/auctions/join/{id}', [AuctionController::class, 'joinAuction'])->middleware('auth');
+Route::post('/auctions/bid/{id}', [AuctionController::class, 'bidOnTheCar'])->middleware('auth');
 
 Route::delete('/auctions/leave/{id}', [AuctionController::class, 'leaveAuction'])->middleware('auth');

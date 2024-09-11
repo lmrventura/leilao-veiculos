@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Auction;
+use App\Models\Bid;
 use App\Models\Optional;
+use App\Models\User;
 use App\Models\Vehicle;
 use Exception;
 use Illuminate\Http\Request;
@@ -127,5 +129,53 @@ class AuctionController extends Controller
             return back()->withErrors(['error' => $e->getMessage()]);
         }
         
+    }
+
+    public function show($id) {
+        $auction = Auction::findOrFail($id); //$auction = Auction::where('id', $id);
+        $auctionOwner = User::where('id', $auction->user_id)->first()->toArray();
+        $vehicle = Vehicle::where('id', $auction->vehicle_id)->first(); 
+
+        $user = auth()->user();
+        $isUsersLastBid = false;
+
+        // Recupera o último lance associado ao leilão, ordenado por 'id' ou 'date_time'
+        // $lastBid = $auction->bids()->latest('id')->first(); // ou 'date_time' se for baseado em tempo
+
+        // Verifica se o último lance pertence ao usuário autenticado
+        // if ($lastBid && $lastBid->buyer_id == $user->id) {
+        //     $isUsersLastBid = true;
+        // }
+
+        $bids = $auction->bids()->get()->toArray(); // $bids = $auction->bids()->toArray();
+        forEach($bids as $index => $bid) {
+            // Se for o último
+            if($index === array_key_last($bids)) {
+                if($bid['buyer_id'] == $user->id){
+                    $isUsersLastBid = true;
+                }
+            }
+        }
+
+        return view(
+            'auctions.show', [
+                'auction' => $auction,
+                'auctionOwner' => $auctionOwner,
+                'vehicle' => $vehicle,
+                'isUsersLastBid' => $isUsersLastBid
+            ]);
+    }
+
+    public function bidOnTheCar($id) {
+        $user = auth()->user();
+
+        $bid = Bid::create([
+            'date_time' => now(),
+            'value' => 300,
+            'auction_id' => $id,
+            'buyer_id' => $user->id
+        ]);
+
+        return redirect()->route('auctions.show', ['id' => $id]); // redirect("/auctions/{$id}");
     }
 }
