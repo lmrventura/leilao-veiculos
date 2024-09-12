@@ -164,6 +164,9 @@
   
   #image-container img {
     border-radius: 10px;
+    height: 40%;
+    width: 40%;
+    margin-bottom: 10px;
   }
   
   #info-container h1 {

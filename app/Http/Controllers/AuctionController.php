@@ -151,18 +151,28 @@ class AuctionController extends Controller
         forEach($bids as $index => $bid) {
             // Se for o último
             if($index === array_key_last($bids)) {
-                if($bid['buyer_id'] == $user->id){
+                if($bid['buyer_id'] == $user->id && $bid['id' > 1]){ //if($bid['buyer_id'] == $user->id){
                     $isUsersLastBid = true;
                 }
             }
         }
+
+        $lastBid = $auction->bids()->latest('id')->first();
+        if($lastBid) {
+            $lastBid->toArray();
+        }else{
+            $lastBid = [];
+        }
+
+        // if lastbid > starting_bid
 
         return view(
             'auctions.show', [
                 'auction' => $auction,
                 'auctionOwner' => $auctionOwner,
                 'vehicle' => $vehicle,
-                'isUsersLastBid' => $isUsersLastBid
+                'isUsersLastBid' => $isUsersLastBid,
+                'lastBid' => $lastBid
             ]);
     }
 
@@ -176,6 +186,6 @@ class AuctionController extends Controller
             'buyer_id' => $user->id
         ]);
 
-        return redirect()->route('auctions.show', ['id' => $id]); // redirect("/auctions/{$id}");
+        return redirect()->route('auctions.show', ['id' => $id, 'bid']); // redirect("/auctions/{$id}");
     }
 }

@@ -9,6 +9,8 @@ class Bid extends Model
 {
     use HasFactory;
 
+    protected $fillable = [''];
+
     public function auction() {
         return $this->belongsTo('App\Models\Auction');
     }

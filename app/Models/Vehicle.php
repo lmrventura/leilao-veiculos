@@ -29,7 +29,7 @@ class Vehicle extends Model
     protected $guarded = [];
 
     public function auction() {
-        return $this->hasOne('App\Models\Auction'); 
+        return $this->belongsTo('App\Models\Auction'); //return $this->hasOne('App\Models\Auction'); 
         /**
          * belongsToOne
          * The auctions table should have the vehicle_id as a foreign key to indicate which vehicle is associated with the auction.
