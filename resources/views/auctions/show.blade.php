@@ -29,7 +29,7 @@
         
         <p class="event-owner"><ion-icon name="star-outline"></ion-icon> Início: R$ {{  $auction->starting_bid }}</p>
         @if($lastBid)
-          <p class="event-owner"><ion-icon name="star-outline"></ion-icon> Último lance: R$ {{$lastBid->value}}</p>
+          <p class="event-owner"><ion-icon name="star-outline"></ion-icon> Último lance: R$ {{$lastBid}}</p>
         @endif
         
         {{-- @if(!$hasUserJoined) --}}
@@ -38,6 +38,7 @@
           <p class="msg">O último lance foi seu!</p>
         @endif
 
+      </br>
         <form action="/auctions/bid/{{ $auction->id }}" method="POST">
           @csrf
           <button type="submit" class="btn btn-primary">

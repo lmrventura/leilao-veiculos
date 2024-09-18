@@ -20,7 +20,13 @@
     <div id="cards-container" class="row">
         @foreach($auctions as $auction)
         <div class="card col-md-3">
-            <img src="/img/vehicles/{{ $auction->vehicle->images->first()->path }}" alt="{{ $auction->vehicle->model }}">
+            <!-- <img src="/img/vehicles/{{ $auction->vehicle->images->first()->path }}" alt="{{ $auction->vehicle->model }}"> -->
+            @if($auction->vehicle->images->isNotEmpty())
+                <img src="/{{ $auction->vehicle->images->first()->path }}" class="img-fluid" alt="{{ $auction->vehicle->model }}">
+            @else
+                <img src="/path/to/default/image.jpg" class="img-fluid" alt="Default Image">
+            @endif
+            
             <div class="card-body">
                 <p class="card-date">{{ date('d/m/Y', strtotime($auction->start_time)) }}</p>
                 <h5 class="card-title">{{ $auction->vehicle->make }} {{ $auction->vehicle->model }}</h5>
@@ -29,11 +35,12 @@
             </div>
         </div>
         @endforeach
+        
         @if(count($auctions) == 0 && $search)
             <p>Não foi possível encontrar nenhum leilão de {{ $search }}! <a href="/">Ver todos</a></p>
         @elseif(count($auctions) == 0)
             <p>Não há leilões disponíveis</p>
-    @endif    
+        @endif    
     </div>
 </div>
 

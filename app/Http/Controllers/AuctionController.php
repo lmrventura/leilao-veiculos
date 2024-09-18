@@ -25,9 +25,11 @@ class AuctionController extends Controller
             $auctions = Auction::all();
         }
         
+        $vehicles = Vehicle::all();
         return view('welcome',[
             'auctions' => $auctions,
-            'search' => $search
+            'search' => $search,
+            'vehicles' => $vehicles
         ]);
     }
 
@@ -157,14 +159,16 @@ class AuctionController extends Controller
             }
         }
 
-        $lastBid = $auction->bids()->latest('id')->first();
-        if($lastBid) {
-            $lastBid->toArray();
-        }else{
-            $lastBid = [];
-        }
+        // $lastBid = $auction->bids()->latest('id')->first();
+        // if($lastBid) {
+        //     $lastBid->toArray();
+        // }else{
+        //     $lastBid = [];
+        // }
 
         // if lastbid > starting_bid
+        $bids = Bid::where('auction_id', $id)->get();
+        $lastBid = Bid::where('auction_id', $id)->orderBy('created_at', 'desc')->first();
 
         return view(
             'auctions.show', [
@@ -172,7 +176,8 @@ class AuctionController extends Controller
                 'auctionOwner' => $auctionOwner,
                 'vehicle' => $vehicle,
                 'isUsersLastBid' => $isUsersLastBid,
-                'lastBid' => $lastBid
+                'lastBid' => $lastBid,
+                'bids' => $bids
             ]);
     }
 
@@ -186,6 +191,6 @@ class AuctionController extends Controller
             'buyer_id' => $user->id
         ]);
 
-        return redirect()->route('auctions.show', ['id' => $id, 'bid']); // redirect("/auctions/{$id}");
+        return redirect()->route('auctions.show', ['id' => $id, 'bid' => $bid]); // redirect("/auctions/{$id}");
     }
 }
